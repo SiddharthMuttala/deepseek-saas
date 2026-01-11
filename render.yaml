@@ -17,7 +17,7 @@ services:
   - type: static
     name: codeforcesai-web
     rootDir: frontend
-    buildCommand: npm ci && npm run build  # FIX: Use npm ci for reliability
+    buildCommand: npm install && npm run build
     staticPublishPath: ./dist  # OR ./build based on your framework
     envVars:
       - key: VITE_API_URL
