@@ -1,0 +1,29 @@
+services:
+  # Backend API (you already have this)
+  - type: web
+    name: codeforcesai-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CORS_ORIGIN
+        value: https://codeforcesai-frontend.onrender.com
+
+  # Frontend Static Site
+  - type: static
+    name: codeforcesai-frontend
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist  # or ./build for Create React App
+    envVars:
+      - key: VITE_API_URL
+        value: https://codeforcesai-backend.onrender.com
+      # OR for Create React App:
+      # - key: REACT_APP_API_URL
+      #   value: https://codeforcesai-backend.onrender.com
