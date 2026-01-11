@@ -1,19 +1,19 @@
 services:
   # Backend API (you already have this)
   - type: web
-    name: codeforcesai-backend
+    name: codeforcesai-api
     env: node
     rootDir: backend
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node --max-old-space-size=256 server.js
     healthCheckPath: /api/health
     envVars:
-      - key: NODE_ENV
-        value: production
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=256
       - key: PORT
         value: 10000
-      - key: CORS_ORIGIN
-        value: https://codeforcesai-frontend.onrender.com
+      - key: NODE_ENV
+        value: production
 
   # Frontend Static Site
   - type: static
