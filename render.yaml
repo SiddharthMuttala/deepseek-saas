@@ -1,5 +1,5 @@
 services:
-  # Backend API (you already have this)
+  # Backend (keep as is)
   - type: web
     name: codeforcesai-api
     env: node
@@ -8,22 +8,20 @@ services:
     startCommand: node --max-old-space-size=256 server.js
     healthCheckPath: /api/health
     envVars:
-      - key: NODE_OPTIONS
-        value: --max-old-space-size=256
-      - key: PORT
-        value: 10000
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 10000
 
-  # Frontend Static Site
+  # Frontend - FIXED VERSION
   - type: static
-    name: codeforcesai-frontend
+    name: codeforcesai-web
     rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist  # or ./build for Create React App
+    buildCommand: npm ci && npm run build  # FIX: Use npm ci for reliability
+    staticPublishPath: ./dist  # OR ./build based on your framework
     envVars:
       - key: VITE_API_URL
-        value: https://codeforcesai-backend.onrender.com
+        value: https://codeforcesai.onrender.com
       # OR for Create React App:
       # - key: REACT_APP_API_URL
-      #   value: https://codeforcesai-backend.onrender.com
+      #   value: https://codeforcesai.onrender.com
